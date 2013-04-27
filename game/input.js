@@ -8,7 +8,7 @@ define(function() {
 		
 		keydown : function(key) {
 			//key.preventDefault();
-			console.log(key.which);
+
 			switch (key.which) {
 			case 32:
 				key.preventDefault();
@@ -30,6 +30,8 @@ define(function() {
 				key.preventDefault();
 				game.player.move(0, -1);
 				break;
+			case 67:
+				game.player.cheat = !game.player.cheat;
 			}
 		}
 	};

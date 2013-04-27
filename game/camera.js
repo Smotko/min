@@ -25,6 +25,13 @@ define(function() {
 		},
 		nextPerspective : function(){
 			currentPerspective = (currentPerspective + 1) % perspectives.length;
+		}, 
+		
+		isMovableX : function(){
+			return currentPerspective == 1;
+		},
+		isMovableY : function(){
+			return currentPerspective == 3;
 		}
 	};
 });
