@@ -5,13 +5,27 @@ define(['input', 'cube'], function (input, cube) {
 
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000);
+//	var camera = new THREE.OrthographicCamera( WIDTH / - 4, WIDTH / 4, HEIGHT / 4, HEIGHT / - 4, 1, 1000 );
 	var renderer = new THREE.WebGLRenderer(); 
 	
+	var plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshLambertMaterial({ color: 0xEEEEEE}));
+	plane.material.side = THREE.DoubleSide;
 	var c = cube.create(0xCC0000);
 	var c2 = cube.create(0x0000CC);
 	c2.position.x += 20;
+	c2.position.y += 10;
+	c2.position.z += 5;
+	c.position.z += 5;
 	var pointLight = new THREE.PointLight(0xFFFFFF);
-
+	
+	var perspectives = [
+	    {x:0,y:0,z:100},
+	    {x:0,y:-100,z:0},
+	    {x:0,y:0,z:100},
+	    {x:100,y:0,z:0}
+	];
+	var currentPerspective = 0;
+	
 	
 	var game = {
 		
@@ -29,13 +43,11 @@ define(['input', 'cube'], function (input, cube) {
 			 
 			scene.add(c); 
 			scene.add(c2); 
-			camera.position.z = 40;
+			scene.add(plane);
 			
 
 			// set its position
-			pointLight.position.x = 10;
-			pointLight.position.y = 50;
-			pointLight.position.z = 130;
+			pointLight.position = camera.position;
 
 			// add to the scene
 			scene.add(pointLight);
@@ -43,20 +55,46 @@ define(['input', 'cube'], function (input, cube) {
 		},
 			
 		render : function(){
+			camera.position.x = 0.8*camera.position.x + 0.2*perspectives[currentPerspective].x;
+			camera.position.y = 0.8*camera.position.y + 0.2*perspectives[currentPerspective].y;
+			camera.position.z = 0.8*camera.position.z + 0.2*perspectives[currentPerspective].z;
+			camera.lookAt({x:0, y:0, z:0});
+			
+			
 			requestAnimationFrame(game.render); 
 			renderer.render(scene, camera);
+			plane.overdraw = true;
+			plane.position = {x:0, y:0, z:0};
+			
 		},
 		
 		changePerspective : function() {
+			currentPerspective = (currentPerspective + 1) % perspectives.length;
+			console.log(perspectives[currentPerspective]);
 			
-			console.log("ChangePerspective");
 		},
 		keydown : function(key) {
+			console.log(key.which);
+			key.preventDefault();
 			switch (key.which) {
-			case key.DOM_VK_SPACE:
+			case 32:
 				game.changePerspective();
 				break;
+			case 37:
+				c.position.x -= 10;
+				break;
+			case 39:
+				c.position.x += 10;
+				break;
+			case 38:
+				c.position.y += 10;
+				break;
+
+			case 40:
+				c.position.y -= 10;
+				break;
 			}
+			return false;
 		}
 	};
 	
