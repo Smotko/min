@@ -8,8 +8,8 @@ define(['cube', 'camera', 'player', 'line'], function (cube, camera, player, lin
 	plane.material.side = THREE.DoubleSide;
 	
 	var lines = [
-//	             line.create([-70, 16], [70, 16]),
-//	             line.create([14, -70], [14, 70]),
+	             line.create([-70, 16], [70, 16]),
+	             line.create([14, -70], [14, 70]),
 	];
 	
 	var c2 = cube.create(0x555555);
