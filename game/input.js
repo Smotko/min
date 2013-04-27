@@ -1,11 +1,37 @@
-require([ 'game' ], function(game) {
-	return {
+define(function() {
+	var game = null;
+	var input = {
+		init : function(g){
+			game = g;
+			$(document).keydown(input.keydown);
+		},
+		
 		keydown : function(key) {
+			//key.preventDefault();
+			console.log(key.which);
 			switch (key.which) {
-			case key.DOM_VK_SPACE:
-				game.changePerspective();
+			case 32:
+				key.preventDefault();
+				game.camera.nextPerspective();
+				break;
+			case 37:
+				key.preventDefault();
+				game.player.move(-1, 0);
+				break;
+			case 39:
+				key.preventDefault();
+				game.player.move(1, 0);
+				break;
+			case 38:
+				key.preventDefault();
+				game.player.move(0, 1);
+				break;
+			case 40:
+				key.preventDefault();
+				game.player.move(0, -1);
 				break;
 			}
 		}
 	};
+	return input;
 });
