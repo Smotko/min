@@ -8,8 +8,8 @@ define(['cube', 'camera', 'player', 'line'], function (cube, camera, player, lin
 	plane.material.side = THREE.DoubleSide;
 	
 	var lines = [
-	             line.create([-70, 16], [70, 16]),
-	             line.create([14, -70], [14, 70]),
+//	             line.create([-70, 16], [70, 16]),
+//	             line.create([14, -70], [14, 70]),
 	];
 	
 	var c2 = cube.create(0x555555);
@@ -46,9 +46,17 @@ define(['cube', 'camera', 'player', 'line'], function (cube, camera, player, lin
 		},
 		
 		checkCollisions : function(){
-			console.log(player.mesh.position.x, c2.position.x,  player.mesh.position.y, c2.position.y);
-			if(player.mesh.position.x == c2.position.x && player.mesh.position.y == c2.position.y){
-				console.log("remove");
+			var size = 5;
+			var collision = false;
+			if(player.mesh.position.x + size > c2.position.x - size && player.mesh.position.x - size < c2.position.x + size){
+				if(player.mesh.position.y + size > c2.position.y - size && player.mesh.position.y - size < c2.position.y + size){
+					c2.scale = {x: 0.9, y:0.9, z: 0.9};
+					collision = true;
+				}
+			}
+			if(!collision){
+				c2.scale = {x: 1, y:1, z: 1};
+			} else if(player.mesh.position.x == c2.position.x && player.mesh.position.y == c2.position.y){
 				scene.remove(c2);
 			}
 		}
