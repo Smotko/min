@@ -4,11 +4,11 @@ define(['input', 'cube'], function (input, cube) {
 	var HEIGHT = window.innerHeight;
 
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera(75, WIDTH / HEIGHT, 0.1, 1000);
-//	var camera = new THREE.OrthographicCamera( WIDTH / - 4, WIDTH / 4, HEIGHT / 4, HEIGHT / - 4, 1, 1000 );
+//	var camera = new THREE.PerspectiveCamera(25, WIDTH / HEIGHT, 0.1, 1000);
+	var camera = new THREE.OrthographicCamera( WIDTH / - 8, WIDTH / 8, HEIGHT / 8, HEIGHT / - 8, 1, 1000 );
 	var renderer = new THREE.WebGLRenderer(); 
 	
-	var plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshLambertMaterial({ color: 0xEEEEEE}));
+	var plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshLambertMaterial({ color: 0xFFFFFF}));
 	plane.material.side = THREE.DoubleSide;
 	var c = cube.create(0xCC0000);
 	var c2 = cube.create(0x0000CC);
@@ -16,7 +16,7 @@ define(['input', 'cube'], function (input, cube) {
 	c2.position.y += 10;
 	c2.position.z += 5;
 	c.position.z += 5;
-	var pointLight = new THREE.PointLight(0xFFFFFF);
+	var pointLight =  new THREE.PointLight( 0xDDDDDD);
 	
 	var perspectives = [
 	    {x:0,y:0,z:100},
@@ -47,7 +47,7 @@ define(['input', 'cube'], function (input, cube) {
 			
 
 			// set its position
-			pointLight.position = camera.position;
+			pointLight.position = {x:0,y:0,z:100};
 
 			// add to the scene
 			scene.add(pointLight);
