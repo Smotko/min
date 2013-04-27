@@ -4,5 +4,6 @@ require(["game"], function(game) {
     //util's dependencies have loaded, and the util argument will hold
     //the module value for "helper/util".
 	game.init();
+	$(window).resize(game.camera.update);
 	game.render();
 });
