@@ -13,6 +13,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 		text : text,
 		level : level,
 		started : false,
+		ended : false,
 			
 		init : function(){
 			
@@ -33,6 +34,8 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 			
 			level.init = true;
 			if(levels.get(l) == null){
+				player.cheat = true;
+				this.ended = true;
 				text.setText("<h1>Min</h1>");
 				text.setTextBottom("#ld48 <br /><a href='http://twitter.com/smotko/'>@smotko</a>");
 				return;
@@ -105,12 +108,17 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 				if(!c.visible){
 					return;
 				}
-				if(game._checkCollisions(c)){
+				if(!game._checkCollisions(c)){
+					c.scale = {x: 1, y:1, z: 1};
+				} else {
+					c.scale = {x: 0.9, y:0.9, z: 0.9};
+					if(game._checkOverlap(c)){
 					c.visible = false;
 					level.removedCnt++;
 					if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
 						// Level complete:
 						game.loadLevel(++level.stage);
+						}
 					}
 				}
 			});

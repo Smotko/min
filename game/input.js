@@ -3,13 +3,21 @@ define(function() {
 	var input = {
 		init : function(g){
 			game = g;
-			$(document).keydown(input.keydown);
+			$(document).keydown(this.keydown);
 		},
 		
 		keydown : function(key) {
 			//key.preventDefault();
 			if(!game.started){
 				game.start();
+				return;
+			}
+			if(game.ended){
+				game.level.stage = 0;
+				game.loadLevel(0);
+				game.start();
+				game.ended = false;
+				game.text.setTextBottom("cheat enabled", 3000);
 				return;
 			}
 			switch (key.which) {
@@ -35,6 +43,10 @@ define(function() {
 				break;
 			case 67:
 				game.player.cheat = !game.player.cheat;
+				break;
+			case 78:
+				game.loadLevel(++game.level.stage);
+				break;
 			}
 		}
 	};

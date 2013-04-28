@@ -42,11 +42,10 @@ define(function(){
 			}
 		},
 		hideTextBottom : function(){
-			console.log("hide");
 			$text2.animate({'opacity': 0.0});
 		},
 		update : function(){
-			var pressSpace2 = "not the same <strong>space</strong>"; 
+			var pressSpace2 = "<strong>space</strong>"; 
 			if($text.html()  == "<strong>space</strong> changes perspective" && game.camera.isMovableX()){
 				this.setText("move <strong>right</strong>");
 			}
