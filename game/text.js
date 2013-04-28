@@ -46,6 +46,7 @@ define(function(){
 		},
 		update : function(){
 			var pressSpace2 = "<strong>space</strong>"; 
+			if(game.level.stage != 0) return;
 			if($text.html()  == "<strong>space</strong> changes perspective" && game.camera.isMovableX()){
 				this.setText("move <strong>right</strong>");
 			}

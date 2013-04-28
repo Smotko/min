@@ -162,11 +162,6 @@ define(['line', 'movingCube'], function(line, movingCube){
 	    {x :  10, y : -28, z : 0},
 	    {x :  20, y : -28, z : 0},
 	    
-	    {x : -20, y : -16, z : 0},
-	    {x : -10, y : -16, z : 0},
-	    {x :   0, y : -16, z : 0},
-	    {x :  10, y : -16, z : 0},
-	    {x :  20, y : -16, z : 0},
 	    
 	    {x : -20, y : -4, z : 0},
 	    {x : -10, y : -4, z : 0},
@@ -174,11 +169,6 @@ define(['line', 'movingCube'], function(line, movingCube){
 	    {x :  10, y : -4, z : 0},
 	    {x :  20, y : -4, z : 0},
 	    
-	    {x : -20, y : 8, z : 0},
-	    {x : -10, y : 8, z : 0},
-	    {x :   0, y : 8, z : 0},
-	    {x :  10, y : 8, z : 0},
-	    {x :  20, y : 8, z : 0},
 	    
 	    {x : -20, y : 20, z : 0},
 	    {x : -10, y : 20, z : 0},

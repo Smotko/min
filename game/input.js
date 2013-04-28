@@ -13,7 +13,7 @@ define(function() {
 				game.start();
 				return;
 			}
-			if(game.ended){
+			if(game.ended && false){
 				lockout = true;
 				game.level.stage = 0;
 				game.loadLevel(0);
