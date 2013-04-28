@@ -1,8 +1,7 @@
-require(["game", "input", "lights"], function(game, input, lights) {
+require(["game", "input"], function(game, input) {
 
 	game.init();
 	input.init(game);
-	lights.init(game);
 	$(window).resize(game.camera.update);
 	game.render();
 });

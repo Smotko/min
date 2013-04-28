@@ -1,24 +1,11 @@
-define(['cube', 'camera', 'player', 'line'], function (cube, camera, player, line) {
+define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube, camera, player, line, levels, lights) {
     
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer(); 
-	
-	// background:
-	var plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshBasicMaterial({ color: 0xEEEEEE}));
-	plane.material.side = THREE.DoubleSide;
-	
-	var lines = [
-	             line.create([-70, 16], [70, 16]),
-	             line.create([14, -70], [14, 70]),
-	];
-	
-	var c2 = cube.create(0x555555);
-	c2.position.x += 20;
-	c2.position.y += 10;
-
+	var level = {stage : 0, init : false};
 	player = player.init();
 	
-	game = {
+	game = {	
 		player : player,
 		scene : scene,
 		camera : camera,
@@ -28,38 +15,121 @@ define(['cube', 'camera', 'player', 'line'], function (cube, camera, player, lin
 			renderer.setSize(window.innerWidth, window.innerHeight); 
 			camera.update();
 			document.body.appendChild(renderer.domElement);
-			
-			 
-			scene.add(player.mesh); 
-			scene.add(c2); 
-			//scene.add(plane);
-			_.each(lines, function(line){scene.add(line);});
+			lights.init(game);
+			game.loadLevel(0);
 			
 		},
+		loadLevel : function(l){
+			game._resetScene(level);
 			
+			level.init = true;
+			if(levels.get(l) == null){
+				console.log("END OF LEVELS");
+				return;
+			}
+			_.extend(level, levels.get(l));
+			level.removedCnt = 0;
+			
+			// reset player:
+			player.position = _.extend({}, level.startPosition);
+			scene.add(player.mesh); 
+			
+			// load cubes:
+			level.levelCubes = _.map(level.cubePositions, function(p){
+				return cube.create(0xCC0000, p);
+			});
+			_.each(level.levelCubes, function(c){
+				scene.add(c);
+			});
+			
+			// load lines:
+			_.each(level.linePositions, function(line){scene.add(line);});
+			camera.get().position = {x:-1000,y:-10000,z:0};
+			
+		},
+		_resetScene : function(l){
+			if(!l.init){
+				return;
+			}
+			camera.resetPerspective();
+			_.each(l.levelCubes, function(c){
+				scene.remove(c);
+			});
+			_.each(l.linePositions, function(l){
+				scene.remove(l);
+			});
+		},
 		render : function(){
 			camera.tick();
+			player.tick();
 			requestAnimationFrame(game.render); 
 			renderer.render(scene, camera.get());
-			plane.position = {x:0, y:0, z:-5};
 			
 		},
-		
+		collideWithLine : function(){
+			if(!camera.isMovableX() && !camera.isMovableY()){
+				console.log("Game over");
+				game.loadLevel(0);
+			}
+		},
+		// Collisions:
 		checkCollisions : function(){
-			var size = 5;
-			var collision = false;
-			if(player.mesh.position.x + size > c2.position.x - size && player.mesh.position.x - size < c2.position.x + size){
-				if(player.mesh.position.y + size > c2.position.y - size && player.mesh.position.y - size < c2.position.y + size){
-					c2.scale = {x: 0.9, y:0.9, z: 0.9};
-					collision = true;
+			_.each(level.levelCubes, function(c){
+				if(!c.visible){
+					return;
+				}
+				if(!game._checkCollisions(c)){
+					c.scale = {x: 1, y:1, z: 1};
+				} else {
+					c.scale = {x: 0.9, y:0.9, z: 0.9};
+					if(game._checkOverlap(c)){
+						c.visible = false;
+						level.removedCnt++;
+						console.log("Reset counter:", level.removedCnt, level.levelCubes.length);
+						if(level.removedCnt == level.levelCubes.length){
+							// Level complete:
+							game.loadLevel(++level.stage);
+						}
+					}
+				}
+				if(game._checkLineCollisions()){
+					game.collideWithLine();
+				} 
+			});
+		},
+		_checkCollisions : function(b){
+			console.log(player.position.x, player.mesh.position.x);
+			if(player.position.x + player.size > b.position.x - player.size && player.position.x - player.size < b.position.x + player.size){
+				if(player.position.y + player.size > b.position.y - player.size && player.position.y - player.size < b.position.y + player.size){
+					return true;
 				}
 			}
-			if(!collision){
-				c2.scale = {x: 1, y:1, z: 1};
-			} else if(player.mesh.position.x == c2.position.x && player.mesh.position.y == c2.position.y){
-				scene.remove(c2);
-			}
-		}
+			return false;
+		},
+		_checkOverlap : function(b) {
+			return player.position.x == b.position.x && player.position.y == b.position.y;
+		},
+		_checkLineCollisions : function(){
+			var lines = level.linePositions;
+			for(var i = 0; i < lines.length; i++){
+				var l = lines[i];
+				if(l.lineTo[0] == l.lineFrom[0]){
+					if(player.position.y < l.lineTo[1] + player.size*2 && player.position.y > l.lineFrom[1] - player.size*2 ){
+						if(player.position.x + player.size > l.lineTo[0] && player.position.x - player.size < l.lineTo[0]){
+							return true;
+						}
+					}
+				}
+				else{
+					if(player.position.x < l.lineTo[0] + player.size*2 && player.position.x > l.lineFrom[0] - player.size*2 ){
+						if(player.position.y + player.size > l.lineTo[1] && player.position.y - player.size < l.lineTo[1]){
+							return true;
+						}
+					}
+				}
+			};
+			return false;
+		},
 	};
 	
 	return game;
