@@ -63,7 +63,6 @@ define(['line', 'movingCube'], function(line, movingCube){
 	var l4 = new level();
 	l4.linePositions = [
 	    line.create([30, -2], [30, 40]),
-		line.create([18, -2], [18, 40]),
 		line.create([6, -2], [6, 40]),
 		line.create([12, 44], [24, 44]),
 	];
@@ -284,7 +283,34 @@ define(['line', 'movingCube'], function(line, movingCube){
 	
 	l11.text = 'lava lamp';
 	
-	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11];
+	var l12 = new level();
+	l12.linePositions = [
+	    line.create([-6, -34], [20, -34]),
+	    line.create([-6, 46], [20, 46]),
+	    line.create([-6, -20], [20, -20]),
+	    line.create([26,-30], [26,42]),
+	    line.create([-10,-30], [-10,42]),
+	    
+	];
+	l12.cubePositions = [
+	    {x: 8, y: -26, z: 0}, 
+	    {x: -2, y: -26, z: 0}, 
+	    {x: 18, y: -26, z: 0}
+	];
+	l12.startPosition = {x: -40, y: 0, z: 0};
+	l12.movingCubes = [
+	    new movingCube({x: 8, y: 30, z: 0}, {x:0,y:0.1}),  
+	    
+	    new movingCube({x: -2, y: 20, z: 0}, {x:0,y:0.2}),  
+	    new movingCube({x: -2, y: 10, z: 0}, {x:0,y:0.1}),  
+	    
+	    new movingCube({x: 18, y: 20, z: 0}, {x:0,y:0.25}),  
+	    new movingCube({x: 18, y: 20, z: 0}, {x:0,y:0.4}),  
+	];
+	
+	l12.text = 'who knows';
+	
+	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11, l12];
 	
 	return {
 		get : function(l){

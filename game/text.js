@@ -49,20 +49,26 @@ define(function(){
 			if($text.html()  == "<strong>space</strong> changes perspective" && game.camera.isMovableX()){
 				this.setText("move <strong>right</strong>");
 			}
-			if(($text.html()  == "move <strong>right</strong>" || $text.html() == "move <strong>left</strong>") && game.player.position.x == 30){
+			if($text.html()  != pressSpace2 && game.player.position.x == 30 && game.camera.isMovableX()){
 				this.setText(pressSpace2);
 			}
-			if($text.html() == pressSpace2 && game.player.position.x < 30){
+			if($text.html() != "move <strong>right</strong>" && game.player.position.x < 30 && game.camera.isMovableX()){
 				this.setText("move <strong>right</strong>");
 			}
-			if($text.html() == pressSpace2 && game.player.position.x > 30){
+			if($text.html() != "move <strong>left</strong>" && game.player.position.x > 30 && game.camera.isMovableX()){
 				this.setText("move <strong>left</strong>");
 			}
 			if($text.html() == pressSpace2 && !game.camera.isMovableX()){
 				this.setText("there is another <strong>perspective</strong>");
 			}
-			if($text.html() == "there is another <strong>perspective</strong>" && game.camera.isMovableY()){
+			if($text.html() != "now move <strong>up</strong>" && game.camera.isMovableY() && game.player.position.x == 30 && game.player.position.y < 20){
 				this.setText("now move <strong>up</strong>");
+			}
+			if($text.html() != "move <strong>down</strong>" && game.camera.isMovableY() && game.player.position.x == 30 && game.player.position.y > 20){
+				this.setText("move <strong>down</strong>");
+			}
+			if($text.html() != "align other perspective" && game.camera.isMovableY() && game.player.position.x != 30){
+				this.setText("align other perspective");
 			}
 		},
 		loadLevelText : function(){

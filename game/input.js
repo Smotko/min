@@ -1,5 +1,6 @@
 define(function() {
 	var game = null;
+	var lockout = false;
 	var input = {
 		init : function(g){
 			game = g;
@@ -13,6 +14,7 @@ define(function() {
 				return;
 			}
 			if(game.ended){
+				lockout = true;
 				game.level.stage = 0;
 				game.loadLevel(0);
 				game.start();
