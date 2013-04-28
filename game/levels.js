@@ -285,8 +285,8 @@ define(['line', 'movingCube'], function(line, movingCube){
 	];
 	l12.startPosition = {x: -60, y: -30, z: 0};
 	l12.movingCubes = [
-	     new movingCube({x: -15, y: -30, z: 0}, {x:0,y:0.2}),
-	     new movingCube({x: 15, y: 30, z: 0}, {x:0,y:0.2}),
+	     new movingCube({x: -16, y: -30, z: 0}, {x:0,y:0.2}),
+	     new movingCube({x: 16, y: 30, z: 0}, {x:0,y:0.2}),
 	];
 	
 	l12.text = 'up the steps';
@@ -321,27 +321,49 @@ define(['line', 'movingCube'], function(line, movingCube){
 	
 	var l14 = new level();
 	l14.linePositions = [
-        line.create([-30, -60], [30, -60]),
-        line.create([-40, -15], [-40, 15]),
-        line.create([40, -15], [40, 15]),
+        line.create([-60, -40], [60, -40]),
+        line.create([-40, -60], [-40, 40]),
 	];
 	l14.cubePositions = [
-	    {x: -0, y: 0, z: 0}, 
-	    {x: -30, y: -30, z: 0}, 
-	    {x: 30, y: -30, z: 0}, 
-	    {x: -0, y: -30, z: 0}, 
 	    
-	    {x: -30, y: -50, z: 0}, 
-	    {x: 30, y: -50, z: 0}, 
-	    {x: -0, y: -50, z: 0}, 
+	    {x: -30, y: -20, z: 0},
+	    {x: -30, y: -30, z: 0}, 
+	    
+	    {x: -14, y: -30, z: 0},
+	    
+	    {x: 2, y: 0, z: 0},
+	    {x: 2, y: -10, z: 0},
+	    {x: 2, y: -30, z: 0}, 
+	    {x: 2, y: -20, z: 0}, 
+
+	    {x: 18, y: -30, z: 0},
+	    {x: 18, y: -20, z: 0}, 
+	    {x: 18, y: -10, z: 0}, 
+ 
+	    {x: 32, y: -30, z: 0}, 
+	    {x: 32, y: -10, z: 0}, 
+	    {x: 32, y: 0, z: 0}, 
+	    {x: 32, y: 10, z: 0}, 
+	    {x: 32, y: -20, z: 0}, 
+
+	    
+	    {x: 48, y: -30, z: 0}, 
+	    {x: 48, y: -20, z: 0}, 
+	    {x: 48, y: -10, z: 0}, 
+	    {x: 48, y: 0, z: 0}, 
+	    {x: 48, y: 10, z: 0}, 
+	    {x: 48, y: 20, z: 0},
+	    {x: 48, y: 30, z: 0},
+	    {x: 48, y: 40, z: 0},
+	    
+ 
+
 	];
-	l14.startPosition = {x: 0, y: 30, z: 0};
+	l14.startPosition = {x: -50, y: -30, z: 0};
 	l14.movingCubes = [
-	     new movingCube({x: -30, y: -15, z: 0}, {x:0.2,y:0}),
-	     new movingCube({x: 30, y: 15, z: 0}, {x:-0.2,y:0}),
 	];
 	
-	l14.text = 'remove <strong>all</strong> the blocks';
+	l14.text = 'stop the <strong>growth</strong>';
 	
 	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11, l12, l13, l14];
 	
