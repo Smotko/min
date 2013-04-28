@@ -85,7 +85,6 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube,
 					if(game._checkOverlap(c)){
 						c.visible = false;
 						level.removedCnt++;
-						console.log("Reset counter:", level.removedCnt, level.levelCubes.length);
 						if(level.removedCnt == level.levelCubes.length){
 							// Level complete:
 							game.loadLevel(++level.stage);
@@ -98,7 +97,6 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube,
 			});
 		},
 		_checkCollisions : function(b){
-			console.log(player.position.x, player.mesh.position.x);
 			if(player.position.x + player.size > b.position.x - player.size && player.position.x - player.size < b.position.x + player.size){
 				if(player.position.y + player.size > b.position.y - player.size && player.position.y - player.size < b.position.y + player.size){
 					return true;
