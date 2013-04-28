@@ -1,11 +1,12 @@
-define(['line'], function(line){
+define(['line', 'movingCube'], function(line, movingCube){
 	
 	var level = function(){
 		
 		return {
 			startPosition : {x: 0, y: 0, z: 0},
 			linePositions : [],
-			cubePositions : []
+			cubePositions : [],
+			movingCubes : [],
 		};
 	};
 	var l1 = new level();
@@ -178,7 +179,91 @@ define(['line'], function(line){
 	l7.startPosition = {x: -20, y: -40, z: 0};
 	
 	
-	var levels = [l1, l2, l3, l4, l5, l6, l7];
+	
+	var l8 = new level();
+	l8.linePositions = [
+	    line.create([-20, -34], [20, -34]),
+	    line.create([-20, 2], [20, 2]),
+	    
+	];
+	l8.cubePositions = [
+	];
+	l8.startPosition = {x: -40, y: -10, z: 0};
+	l8.movingCubes = [
+	    new movingCube({x: 10, y: -10, z: 0}, {x:0,y:0.1}),          
+	];
+	
+	var l9 = new level();
+	l9.linePositions = [
+	    line.create([10, -34], [10.01, -34]),
+	    line.create([10, 46], [10.01, 46]),
+	    line.create([40,20], [40,20]),
+	    line.create([-40,20], [-40,20])
+	    
+	];
+	l9.cubePositions = [
+	];
+	l9.startPosition = {x: -40, y: -10, z: 0};
+	l9.movingCubes = [
+	    new movingCube({x: 10, y: -10, z: 0}, {x:0,y:0.2}),     
+	    new movingCube({x: 10, y: 20, z: 0}, {x:0.1,y:0}), 
+	];
+	
+	var l10 = new level();
+	l10.linePositions = [
+	    line.create([-6, -34], [20, -34]),
+	    line.create([-6, 46], [20, 46]),
+	    line.create([-6, 14], [20, 14]),
+	    line.create([-10,20], [-10,42]),
+	    line.create([2,20], [2,42]),
+	    line.create([14,20], [14,42]),
+	    line.create([26,-30], [26,42]),
+	    line.create([-10,-30], [-10,42]),
+	    
+	];
+	l10.cubePositions = [
+	    {x: 20, y: 20, z: 0},
+	    {x: -4, y: 20, z: 0},
+	    {x: 20, y: 30, z: 0},
+	    {x: -4, y: 30, z: 0},
+	    {x: 20, y: 40, z: 0},
+	    {x: -4, y: 40, z: 0},
+	    
+	];
+	l10.startPosition = {x: 40, y: 0, z: 0};
+	l10.movingCubes = [
+	    new movingCube({x: 8, y: -10, z: 0}, {x:0,y:0.2}),  
+	    new movingCube({x: 8, y: 30, z: 0}, {x:0,y:0.1}),  
+	];
+	
+	
+	var l11 = new level();
+	l11.linePositions = [
+	    line.create([-6, -34], [20, -34]),
+	    line.create([-6, 46], [20, 46]),
+	    line.create([-6, -20], [20, -20]),
+	    line.create([26,-30], [26,42]),
+	    line.create([-10,-30], [-10,42]),
+	    
+	];
+	l11.cubePositions = [
+	    {x: 8, y: -26, z: 0}, 
+	    {x: -2, y: -26, z: 0}, 
+	    {x: 18, y: -26, z: 0}
+	];
+	l11.startPosition = {x: -40, y: 0, z: 0};
+	l11.movingCubes = [
+	    new movingCube({x: 8, y: 30, z: 0}, {x:0,y:0.1}),  
+	    
+	    new movingCube({x: -2, y: 20, z: 0}, {x:0,y:0.2}),  
+	    new movingCube({x: -2, y: 10, z: 0}, {x:0,y:0.1}),  
+	    
+	    new movingCube({x: 18, y: 20, z: 0}, {x:0,y:0.25}),  
+	    new movingCube({x: 18, y: 20, z: 0}, {x:0,y:0.4}),  
+	];
+	
+	
+	var levels = [l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11];
 	
 	return {
 		get : function(l){

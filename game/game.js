@@ -3,7 +3,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
     
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer(); 
-	var level = {stage : 7, init : false};
+	var level = {stage : 0, init : false};
 	player = player.init();
 	
 	game = {	
@@ -45,6 +45,13 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 				scene.add(c);
 			});
 			
+			// load movable cubes:
+			_.each(level.movingCubes, function(c){
+				c.visible = true;
+				scene.add(c);
+			});
+			
+			
 			// load lines:
 			_.each(level.linePositions, function(line){scene.add(line);});
 			camera.get().position = {x:-1000,y:-10000,z:0};
@@ -64,11 +71,17 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 			_.each(l.linePositions, function(l){
 				scene.remove(l);
 			});
+			_.each(l.movingCubes, function(mc){
+				scene.remove(mc);
+			});
 		},
 		render : function(){
 			camera.tick();
 			player.tick();
 			text.update();
+			_.each(level.movingCubes, function(c){
+				c.tick();
+			});
 			requestAnimationFrame(game.render); 
 			renderer.render(scene, camera.get());
 			
@@ -92,16 +105,34 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 					if(game._checkOverlap(c)){
 						c.visible = false;
 						level.removedCnt++;
-						if(level.removedCnt == level.levelCubes.length){
+						if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
 							// Level complete:
 							game.loadLevel(++level.stage);
 						}
 					}
 				}
-				if(game._checkLineCollisions()){
-					game.collideWithLine();
-				} 
 			});
+			_.each(level.movingCubes, function(c){
+				if(!c.visible){
+					return;
+				}
+				if(!game._checkCollisions(c)){
+					c.scale = {x: 1, y: 1, z: 1};
+				} else {
+					c.scale = {x: 0.9, y:0.9, z: 0.9};
+					if(game._checkOverlap(c)){
+						c.visible = false;
+						level.removedCnt++;
+						if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
+							// Level complete:
+							game.loadLevel(++level.stage);
+						}
+					}
+				}
+			});
+			if(game._checkLineCollisions(player)){
+				game.collideWithLine();
+			} 
 		},
 		_checkCollisions : function(b){
 			if(player.position.x + player.size > b.position.x - player.size && player.position.x - player.size < b.position.x + player.size){
@@ -112,9 +143,9 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 			return false;
 		},
 		_checkOverlap : function(b) {
-			return player.position.x == b.position.x && player.position.y == b.position.y;
+			return Math.abs(player.position.x - b.position.x) < 0.001 && Math.abs(player.position.y - b.position.y) < 0.5;
 		},
-		_checkLineCollisions : function(){
+		_checkLineCollisions : function(player){
 			var lines = level.linePositions;
 			for(var i = 0; i < lines.length; i++){
 				var l = lines[i];

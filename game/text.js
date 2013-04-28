@@ -71,10 +71,16 @@ define(function(){
 				this.setText('think outside the box', 3000);
 			}
 			if(game.level.stage == 6){
-				this.setText('change is comming', 3000);
+				this.setText('i sense a new block', 3000);
 			}
 			if(game.level.stage == 7){
-				this.setText('you are not the only thing that moves', 3000);
+				this.setText('you are not the only thing that <span style="color:blue">moves</span>', 3000);
+			}
+			if(game.level.stage == 8){
+				this.setText('dancing with blocks', 3000);
+			}
+			if(game.level.stage == 10){
+				this.setText('lava lamp', 3000);
 			}
 		}
 	};
