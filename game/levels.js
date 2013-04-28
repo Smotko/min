@@ -45,7 +45,7 @@ define(['line', 'movingCube'], function(line, movingCube){
 	    {x : 40, y : -30, z : 0},
 	];
 	l2.startPosition = {x: 0, y: 40, z: 0};
-	l2.text = '<span style="color:red">red</span> is not minimalistic';
+	l2.text = '<strong><span style="color:#CC0000">red</span></strong> is not minimalistic';
 	
 	var l3 = new level();
 	l3.linePositions = [
@@ -58,7 +58,7 @@ define(['line', 'movingCube'], function(line, movingCube){
 	    {x : 12, y : 40, z : 0},
 	];
 	l3.startPosition = {x: 0, y: 40, z: 0};
-	l3.text = "tasty";
+	l3.text = "a reward for your hard work";
 	
 	var l4 = new level();
 	l4.linePositions = [
@@ -195,7 +195,7 @@ define(['line', 'movingCube'], function(line, movingCube){
 	    
 	];
 	l7.startPosition = {x: -20, y: -40, z: 0};
-	l7.text = 'a stack';
+	l7.text = 'start at the <strong>bottom</strong>';
 	
 	
 	var l8 = new level();
@@ -210,7 +210,7 @@ define(['line', 'movingCube'], function(line, movingCube){
 	l8.movingCubes = [
 	    new movingCube({x: 10, y: -10, z: 0}, {x:0,y:0.1}),          
 	];
-	l8.text = 'you are not the only thing that <span style="color:blue">moves</span>';
+	l8.text = 'you are not the only thing that <strong><span style="color:#0000CC">moves</span></strong>';
 	
 	var l9 = new level();
 	l9.linePositions = [
@@ -255,7 +255,7 @@ define(['line', 'movingCube'], function(line, movingCube){
 	    new movingCube({x: 8, y: -10, z: 0}, {x:0,y:0.2}),  
 	    new movingCube({x: 8, y: 30, z: 0}, {x:0,y:0.1}),  
 	];
-	l10.text = 'a thing';
+	l10.text = 'no way in';
 	
 	var l11 = new level();
 	l11.linePositions = [

@@ -1,5 +1,5 @@
-define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'], 
-		function (cube, camera, player, line, levels, lights, text) {
+define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text', 'score'], 
+		function (cube, camera, player, line, levels, lights, text, score) {
     
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer(); 
@@ -14,6 +14,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 		level : level,
 		started : false,
 		ended : false,
+		score : score,
 			
 		init : function(){
 			
@@ -33,11 +34,14 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 			game._resetScene(level);
 			
 			level.init = true;
+			player.mesh.visible = true;
 			if(levels.get(l) == null){
 				player.cheat = true;
+				player.mesh.visible = false;
 				this.ended = true;
-				text.setText("<h1>Min</h1>");
+				text.setText("<h1>Min</h1><strong>" + score.steps + "</strong> steps<br /><strong>" + score.changes + "</strong> perspective changes<br /><strong>" + score.deaths + "</strong> incidents");
 				text.setTextBottom("#ld48 <br /><a href='http://twitter.com/smotko/'>@smotko</a>");
+				
 				return;
 			}
 			_.extend(level, levels.get(l));
@@ -100,7 +104,8 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 			if(!camera.isMovableX() && !camera.isMovableY()){
 				text.setText("<strong>lines</strong> are deadly", 3000);
 				game.loadLevel(level.stage);
-			}
+				score.deaths += 1;
+			};
 		},
 		// Collisions:
 		checkCollisions : function(){
