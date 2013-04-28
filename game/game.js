@@ -1,14 +1,17 @@
-define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube, camera, player, line, levels, lights) {
+define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'], 
+		function (cube, camera, player, line, levels, lights, text) {
     
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer(); 
-	var level = {stage : 0, init : false};
+	var level = {stage : 7, init : false};
 	player = player.init();
 	
 	game = {	
 		player : player,
 		scene : scene,
 		camera : camera,
+		text : text,
+		level : level,
 			
 		init : function(){
 			
@@ -16,7 +19,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube,
 			camera.update();
 			document.body.appendChild(renderer.domElement);
 			lights.init(game);
-			game.loadLevel(0);
+			game.loadLevel(level.stage);
 			
 		},
 		loadLevel : function(l){
@@ -24,7 +27,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube,
 			
 			level.init = true;
 			if(levels.get(l) == null){
-				console.log("END OF LEVELS");
+				text.setText("<strong>end</strong>");
 				return;
 			}
 			_.extend(level, levels.get(l));
@@ -46,6 +49,9 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube,
 			_.each(level.linePositions, function(line){scene.add(line);});
 			camera.get().position = {x:-1000,y:-10000,z:0};
 			
+			// load text:
+			text.loadLevelText();
+			
 		},
 		_resetScene : function(l){
 			if(!l.init){
@@ -62,14 +68,15 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights'], function (cube,
 		render : function(){
 			camera.tick();
 			player.tick();
+			text.update();
 			requestAnimationFrame(game.render); 
 			renderer.render(scene, camera.get());
 			
 		},
 		collideWithLine : function(){
 			if(!camera.isMovableX() && !camera.isMovableY()){
-				console.log("Game over");
-				game.loadLevel(0);
+				text.setText("<strong>lines</strong> are deadly", 3000);
+				game.loadLevel(level.stage);
 			}
 		},
 		// Collisions:
