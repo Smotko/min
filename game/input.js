@@ -8,7 +8,10 @@ define(function() {
 		
 		keydown : function(key) {
 			//key.preventDefault();
-
+			if(!game.started){
+				game.start();
+				return;
+			}
 			switch (key.which) {
 			case 32:
 				key.preventDefault();

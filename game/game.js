@@ -12,6 +12,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 		camera : camera,
 		text : text,
 		level : level,
+		started : false,
 			
 		init : function(){
 			
@@ -19,15 +20,21 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 			camera.update();
 			document.body.appendChild(renderer.domElement);
 			lights.init(game);
+			text.setText("<h1>Min</h1>");
+			text.setTextBottom("press a key");
+		},
+		start : function(){
+			this.started = true;
+			text.hideTextBottom();
 			game.loadLevel(level.stage);
-			
 		},
 		loadLevel : function(l){
 			game._resetScene(level);
 			
 			level.init = true;
 			if(levels.get(l) == null){
-				text.setText("<strong>end</strong>");
+				text.setText("<h1>Min</h1>");
+				text.setTextBottom("#ld48 <br /><a href='http://twitter.com/smotko/'>@smotko</a>");
 				return;
 			}
 			_.extend(level, levels.get(l));
@@ -98,17 +105,12 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 				if(!c.visible){
 					return;
 				}
-				if(!game._checkCollisions(c)){
-					c.scale = {x: 1, y:1, z: 1};
-				} else {
-					c.scale = {x: 0.9, y:0.9, z: 0.9};
-					if(game._checkOverlap(c)){
-						c.visible = false;
-						level.removedCnt++;
-						if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
-							// Level complete:
-							game.loadLevel(++level.stage);
-						}
+				if(game._checkCollisions(c)){
+					c.visible = false;
+					level.removedCnt++;
+					if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
+						// Level complete:
+						game.loadLevel(++level.stage);
 					}
 				}
 			});
@@ -116,17 +118,12 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text'],
 				if(!c.visible){
 					return;
 				}
-				if(!game._checkCollisions(c)){
-					c.scale = {x: 1, y: 1, z: 1};
-				} else {
-					c.scale = {x: 0.9, y:0.9, z: 0.9};
-					if(game._checkOverlap(c)){
-						c.visible = false;
-						level.removedCnt++;
-						if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
-							// Level complete:
-							game.loadLevel(++level.stage);
-						}
+				if(game._checkCollisions(c)){
+					c.visible = false;
+					level.removedCnt++;
+					if(level.removedCnt == (level.levelCubes.length + level.movingCubes.length)){
+						// Level complete:
+						game.loadLevel(++level.stage);
 					}
 				}
 			});

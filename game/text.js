@@ -4,12 +4,17 @@ define(function(){
 	text.innerHTML = "";
 	document.body.appendChild(text);
 	$text = $('div');
-	self = this;
+	
+	var text2 = document.createElement('p');
+	text2.innerHTML = "";
+	document.body.appendChild(text2);
+	$text2 = $('p');
+	
+	
 	var timeout = null;
+	var timeout2 = null;
 	var lastLevel = -1;
 	return {
-
-		
 		
 		setText : function(t, duration){
 			clearTimeout(timeout);
@@ -21,10 +26,25 @@ define(function(){
 				timeout = setTimeout(function(){
 				   $text.animate({'opacity': 0.0},{ queue: false, duration: 1000 });
 				}, duration);
-			}
+			};
 			
 		},
-		
+		setTextBottom : function(t, duration){
+			clearTimeout(timeout2);
+			$text2.animate({'opacity': 0.0}, { queue: true, duration: 0 });
+            $text2.html(t);
+			$text2.animate({'opacity': 0.7}, { queue: true, duration: 300 });
+			
+			if(duration != null){
+				timeout2 = setTimeout(function(){
+				   $text2.animate({'opacity': 0.0},{ queue: false, duration: 1000 });
+				}, duration);
+			}
+		},
+		hideTextBottom : function(){
+			console.log("hide");
+			$text2.animate({'opacity': 0.0});
+		},
 		update : function(){
 			var pressSpace2 = "not the same <strong>space</strong>"; 
 			if($text.html()  == "<strong>space</strong> changes perspective" && game.camera.isMovableX()){
