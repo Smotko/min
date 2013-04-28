@@ -275,32 +275,76 @@ define(['line', 'movingCube'], function(line, movingCube){
 	
 	var l12 = new level();
 	l12.linePositions = [
-	    line.create([-6, -34], [20, -34]),
-	    line.create([-6, 46], [20, 46]),
-	    line.create([-6, -20], [20, -20]),
-	    line.create([26,-30], [26,42]),
-	    line.create([-10,-30], [-10,42]),
-	    
+        line.create([-30, -36], [30, -36]),
+        line.create([-30, 36], [30, 36]),
 	];
 	l12.cubePositions = [
-	    {x: 8, y: -26, z: 0}, 
-	    {x: -2, y: -26, z: 0}, 
-	    {x: 18, y: -26, z: 0}
+	    {x: -30, y: -30, z: 0}, 
+	    {x: -0, y: 0, z: 0}, 
+	    {x: 30, y: 30, z: 0}, 
 	];
-	l12.startPosition = {x: -40, y: 0, z: 0};
+	l12.startPosition = {x: -60, y: -30, z: 0};
 	l12.movingCubes = [
-	    new movingCube({x: 8, y: 30, z: 0}, {x:0,y:0.1}),  
-	    
-	    new movingCube({x: -2, y: 20, z: 0}, {x:0,y:0.2}),  
-	    new movingCube({x: -2, y: 10, z: 0}, {x:0,y:0.1}),  
-	    
-	    new movingCube({x: 18, y: 20, z: 0}, {x:0,y:0.25}),  
-	    new movingCube({x: 18, y: 20, z: 0}, {x:0,y:0.4}),  
+	     new movingCube({x: -15, y: -30, z: 0}, {x:0,y:0.2}),
+	     new movingCube({x: 15, y: 30, z: 0}, {x:0,y:0.2}),
 	];
 	
-	l12.text = 'who knows';
+	l12.text = 'up the steps';
 	
-	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11];
+	
+	var l13 = new level();
+	l13.linePositions = [
+        line.create([-30, -60], [30, -60]),
+        line.create([-40, -15], [-40, 15]),
+        line.create([40, -15], [40, 15]),
+	];
+	l13.cubePositions = [
+	    {x: -0, y: 0, z: 0}, 
+	    {x: -30, y: -30, z: 0}, 
+	    {x: 30, y: -30, z: 0}, 
+	    {x: -0, y: -30, z: 0}, 
+	    
+	    {x: -30, y: -50, z: 0}, 
+	    {x: 30, y: -50, z: 0}, 
+	    {x: -0, y: -50, z: 0}, 
+	];
+	l13.startPosition = {x: 0, y: 30, z: 0};
+	l13.movingCubes = [
+	     new movingCube({x: -30, y: -15, z: 0}, {x:0.2,y:0}),
+	     new movingCube({x: 30, y: 15, z: 0}, {x:-0.2,y:0}),
+	];
+	
+	l13.text = 'down into darkness';
+	
+	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11, l12, l13];
+	
+	
+	var l14 = new level();
+	l14.linePositions = [
+        line.create([-30, -60], [30, -60]),
+        line.create([-40, -15], [-40, 15]),
+        line.create([40, -15], [40, 15]),
+	];
+	l14.cubePositions = [
+	    {x: -0, y: 0, z: 0}, 
+	    {x: -30, y: -30, z: 0}, 
+	    {x: 30, y: -30, z: 0}, 
+	    {x: -0, y: -30, z: 0}, 
+	    
+	    {x: -30, y: -50, z: 0}, 
+	    {x: 30, y: -50, z: 0}, 
+	    {x: -0, y: -50, z: 0}, 
+	];
+	l14.startPosition = {x: 0, y: 30, z: 0};
+	l14.movingCubes = [
+	     new movingCube({x: -30, y: -15, z: 0}, {x:0.2,y:0}),
+	     new movingCube({x: 30, y: 15, z: 0}, {x:-0.2,y:0}),
+	];
+	
+	l14.text = 'remove <strong>all</strong> the blocks';
+	
+	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11, l12, l13, l14];
+	
 	
 	return {
 		get : function(l){

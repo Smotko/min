@@ -1,6 +1,5 @@
 define(function() {
 	var game = null;
-	var lockout = false;
 	var input = {
 		init : function(g){
 			game = g;

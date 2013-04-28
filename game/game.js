@@ -3,7 +3,7 @@ define(['cube', 'camera', 'player', 'line', 'levels', 'lights', 'text', 'score']
     
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer(); 
-	var level = {stage : 0, init : false};
+	var level = {stage : 14, init : false};
 	player = player.init();
 	
 	game = {	
