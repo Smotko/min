@@ -310,7 +310,7 @@ define(['line', 'movingCube'], function(line, movingCube){
 	
 	l12.text = 'who knows';
 	
-	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11, l12];
+	var levels = [l1, l1a,   l6, l2,  l3,  l4, l5, l7, l8, l9, l10, l11];
 	
 	return {
 		get : function(l){
