@@ -70,37 +70,38 @@ define(function(){
 				return;
 			}
 			lastLevel = game.level.stage;
-			if(game.level.stage == 0){
-				this.setText('<strong>space</strong> changes perspective');
-			}
+			this.setText(game.level.text);
 			
-			if(game.level.stage == 1){
-				this.setText('<span style="color:red">red</span> is not minimalistic', 3000);
-			}
-			if(game.level.stage == 2){
-				this.setText('tasty', 3000);
-			}
-			if(game.level.stage == 3){
-				this.setText('up & down', 3000);
-			}
-			if(game.level.stage == 4){
-				this.setText('balance is everything', 3000);
-			}
-			if(game.level.stage == 5){
-				this.setText('think outside the box', 3000);
-			}
-			if(game.level.stage == 6){
-				this.setText('i sense a new block', 3000);
-			}
-			if(game.level.stage == 7){
-				this.setText('you are not the only thing that <span style="color:blue">moves</span>', 3000);
-			}
-			if(game.level.stage == 8){
-				this.setText('dancing with blocks', 3000);
-			}
-			if(game.level.stage == 10){
-				this.setText('lava lamp', 3000);
-			}
+//			if(game.level.stage == 1){
+//				this.setText('<span style="color:red">red</span> is not minimalistic', 3000);
+//			}
+//			if(game.level.stage == 2){
+//				this.setText('slide through multiple blocks', 3000);
+//			}
+//			if(game.level.stage == 3){
+//				this.setText('tasty', 3000);
+//			}
+//			if(game.level.stage == 4){
+//				this.setText('think outside the box', 3000);
+//			}
+//			if(game.level.stage == 5){
+//				this.setText('up & down', 3000);
+//			}
+//			if(game.level.stage == 6){
+//				this.setText('balance is everything', 3000);
+//			}
+//			if(game.level.stage == 7){
+//				this.setText('i sense a new block', 3000);
+//			}
+//			if(game.level.stage == 8){
+//				this.setText('you are not the only thing that <span style="color:blue">moves</span>', 3000);
+//			}
+//			if(game.level.stage == 9){
+//				this.setText('dancing with blocks', 3000);
+//			}
+//			if(game.level.stage == 10){
+//				this.setText('lava lamp', 3000);
+//			}
 		}
 	};
 });
