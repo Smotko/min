@@ -11,6 +11,7 @@ define(['cube'], function(cube){
 				this.position.x += x*step;
 				this.position.y += y*step;
 				game.checkCollisions();
+				game.score.steps += 1;
 				return;
 			}
 			
@@ -18,12 +19,14 @@ define(['cube'], function(cube){
 				if(Math.abs(this.position.x+x*step) < 71){
 					this.position.x += x*step;
 					game.checkCollisions();
+					game.score.steps += 1;
 				}
 			}
 			else if(game.camera.isMovableY()){
 				if(Math.abs(this.position.y+y*step) < 71){
 					this.position.y += y*step;
 					game.checkCollisions();
+					game.score.steps += 1;
 				}
 			}
 		},
