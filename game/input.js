@@ -13,10 +13,13 @@ define(function() {
             $(document).keydown(this.keydown);
             Hammer(document).on("tap", this.tap);
             Hammer(document).on("swipe", this.swipe);
+            Hammer(document).on("touch", function(ev) {
+                ev.gesture.preventDefault();
+            });
         },
         tap : function(event){
             if(startGame()) return;
-            
+            event.gesture.preventDefault();
             var posX = event.gesture.center.pageX;
             var posY = event.gesture.center.pageY;
             
@@ -37,6 +40,7 @@ define(function() {
             }
         },
         swipe : function(event){
+            event.gesture.preventDefault();
             game.camera.nextPerspective();
             game.score.changes += 1;
         },
